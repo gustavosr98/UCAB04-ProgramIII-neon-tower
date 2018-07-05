@@ -4,10 +4,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-/**
- * Created by Gustavo on 23-Jun-18.
- */
-
 public class Grid {
     Texture imagen;
     Sprite sprite;

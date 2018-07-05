@@ -1,13 +1,12 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 import java.util.ArrayList;
 
 public class Board {
-	ArrayList<Paquete> paquetes;
-	ArrayList<Color> colores;
+	private ArrayList<Paquete> paquetes;
+	private ArrayList<Color> colores;
 	int colorIndex;
 
 	public Board(){
@@ -23,9 +22,14 @@ public class Board {
 		colores.add(new Color( 0.2f, 1 ,0.6f) );
 	}
 
-	public void nuevoPaquete(World world, float unidad, float x, float y) {
-		paquetes.add( new Paquete(world, unidad, x , y, colores.get( colorIndex ) ) );
+
+	public Color getColor(){
 		siguienteColor();
+		return colores.get( colorIndex ) ;
+	}
+
+	public void addPaquete(Paquete paquete){
+		paquetes.add(paquete);
 	}
 
 	public void siguienteColor(){
@@ -48,6 +52,15 @@ public class Board {
 		for (Paquete p: paquetes)
 			p.dispose(world);
 		paquetes.clear();
+	}
+
+	public boolean hayBloqueArriba(float y){
+		boolean x = false;
+		for(Paquete p: paquetes){
+			if( p.hayBloqueArriba(y) )
+				x = true;
+		}
+		return x;
 	}
 
 

@@ -10,9 +10,6 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-/**
- * Created by Javier on 23/06/2018.
- */
 
 public class PantallaMenu extends Pantalla {
 
@@ -27,8 +24,8 @@ public class PantallaMenu extends Pantalla {
         botonReset = new BotonReset(game);
 
         stage = new Stage();
-        stage.addActor(botonPlay.getImageButton());
-        stage.addActor(botonReset.getImageButton());
+        stage.addActor(botonPlay.getButton());
+        stage.addActor(botonReset.getButton());
 
     }
 

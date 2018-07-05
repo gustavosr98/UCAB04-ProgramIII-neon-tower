@@ -10,10 +10,6 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import static com.mygdx.game.Constantes.PPM;
 
-/**
- * Created by Gustavo on 18-Jun-18.
- */
-
 public class Piso {
     Texture imagen;
     Sprite sprite;

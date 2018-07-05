@@ -13,33 +13,28 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import static com.mygdx.game.Constantes.PPM;
 
 
-/**
- * Created by Javier on 26/06/2018.
- */
-
 public class PantallaJuego extends Pantalla{
     private final float SCALE = 2.0f;
 
     private World world;
     private SpriteBatch batch;
-    private OrthographicCamera camara;
-    private Box2DDebugRenderer b2dr;
+    private MyCamera camara;
 
     private Board board;
     private Piso piso;
 
     private BotonPausa botonPausa;
+    private Control control;
     private Stage stage;
 
 
     public PantallaJuego(final MyGdxGame game){
         super (game);
 
-        camara = new OrthographicCamera(game.getWidth(), game.getHeight());
+        camara = new MyCamera( game.getWidth(), game.getHeight() , game.getUnidad() );
         camara.setToOrtho(false, game.getWidth()/ SCALE, game.getHeight()/SCALE);
 
         world = new World(new Vector2(0, 10f) , false);
-        b2dr = new Box2DDebugRenderer();
 
         batch = new SpriteBatch();
 
@@ -49,7 +44,9 @@ public class PantallaJuego extends Pantalla{
         botonPausa = new BotonPausa(game);
 
         stage = new Stage();
-        stage.addActor(botonPausa.getImageButton());
+        stage.addActor(botonPausa.getButton());
+        control = new Control(game, stage);
+
     }
 
     @Override
@@ -61,12 +58,13 @@ public class PantallaJuego extends Pantalla{
     public void render(float delta) {
         cls();
 
-		if(Gdx.input.justTouched()){
+		/*if(Gdx.input.justTouched()){
 			board.nuevoPaquete( world, game.getUnidad(), Gdx.input.getX()  , game.getHeight() - Gdx.input.getY() );
-		}
+		}*/
 
         update(Gdx.graphics.getDeltaTime());
 
+		camara.revisarSensor ( board.hayBloqueArriba(game.getHeight()/2 ) );
         batch.begin();
         board.draw(batch);
         piso.draw(batch);
@@ -98,6 +96,7 @@ public class PantallaJuego extends Pantalla{
         cameraUpdate(delta);
         batch.setProjectionMatrix(camara.combined);
         piso.update();
+        control.update( board, world, game.getUnidad(), camara, Gdx.input.isTouched() );
     }
 
     public void cameraUpdate(float delta){
@@ -106,7 +105,6 @@ public class PantallaJuego extends Pantalla{
 
     @Override
     public void dispose() {
-        b2dr.dispose();
 
         batch.dispose();
         board.dispose(world);

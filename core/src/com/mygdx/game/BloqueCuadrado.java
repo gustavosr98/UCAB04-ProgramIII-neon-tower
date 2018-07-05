@@ -1,8 +1,5 @@
 package com.mygdx.game;
 
-/**
- * Created by Gustavo on 18-Jun-18.
- */
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -11,7 +8,6 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
-import com.badlogic.gdx.physics.box2d.joints.DistanceJoint;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 
 import static com.mygdx.game.Constantes.PPM;
@@ -89,5 +85,12 @@ public class BloqueCuadrado extends Bloque {
     public Body getBody(){
         return this.body;
     }
+
+    public boolean hayBloqueArriba(float y){
+        if( sprite.getY() < y ){
+            return true;
+        } else return false;
+    }
+
 
 }

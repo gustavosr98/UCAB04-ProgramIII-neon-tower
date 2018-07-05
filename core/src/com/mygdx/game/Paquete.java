@@ -5,24 +5,11 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 
-/**
- * Created by Gustavo on 27-Jun-18.
- */
+
 
 public class Paquete {
-    Color color;
-    ArrayList<Bloque> bloques;
-
-    public Paquete(World world, float unidad, float x , float y, Color c){
-        this.color = c;
-        bloques = new ArrayList<Bloque>();
-        nuevoBloque(world, unidad,x,y-unidad);
-        nuevoBloque(world, unidad,x,y);
-        nuevoBloque(world, unidad,x+unidad,y);
-        nuevoBloque(world, unidad,x+unidad*2,y);
-
-        conectar();
-    }
+    private Color color;
+    private ArrayList<Bloque> bloques = new ArrayList<Bloque>();
 
     public void conectar(){
         Bloque bA, bB;
@@ -36,9 +23,8 @@ public class Paquete {
         }
     }
 
-
-    public void nuevoBloque(World world, float unidad, float x, float y) {
-        bloques.add( new BloqueCuadrado(world, unidad, x , y, color) );
+    public void addBloque(Bloque b) {
+        bloques.add( b );
     }
 
     public void update(){
@@ -54,5 +40,14 @@ public class Paquete {
     public void dispose(World world){
         for (Bloque b: bloques)
             b.dispose(world);
+    }
+
+    public boolean hayBloqueArriba(float y){
+        boolean x = false;
+        for(Bloque b: bloques){
+            if( b.hayBloqueArriba(y) )
+                x = true;
+        }
+        return x;
     }
 }
