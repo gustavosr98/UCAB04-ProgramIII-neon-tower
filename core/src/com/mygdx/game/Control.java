@@ -35,9 +35,10 @@ public class Control {
 
     public Paquete crearPaquete(World world, float unidad, Color color, MyCamera camara){
         Paquete paquete = new Paquete();
-        ArrayList<Bloque> bloques =  new ArrayList<Bloque>();
+        Bloque bloque;
         int a;
         float x, y;
+        Bloque [][] b = new Bloque[3][5];
 
         for(BotonControl bc : botones){
             y = Gdx.graphics.getHeight()/3 - camara.getDesfaceY();
@@ -60,11 +61,32 @@ public class Control {
                 else if (a >= 10 && a < 15)
                     y -= unidad * 1;
 
-                paquete.addBloque( new BloqueCuadrado(world, unidad, x, y, color) );
+                bloque = new BloqueCuadrado(world, unidad, x, y, color);
+
+                switch (a) {
+                    case 0 : b[0][0] = bloque; break;
+                    case 1 : b[0][1] = bloque; break;
+                    case 2 : b[0][2] = bloque; break;
+                    case 3 : b[0][3] = bloque; break;
+                    case 4 : b[0][4] = bloque; break;
+
+                    case 5 : b[1][0] = bloque; break;
+                    case 6 : b[1][1] = bloque; break;
+                    case 7 : b[1][2] = bloque; break;
+                    case 8 : b[1][3] = bloque; break;
+                    case 9 : b[1][4] = bloque; break;
+
+                    case 10 : b[2][0] = bloque; break;
+                    case 11 : b[2][1] = bloque; break;
+                    case 12 : b[2][2] = bloque; break;
+                    case 13 : b[2][3] = bloque; break;
+                    case 14 : b[2][4] = bloque; break;
+
+                    paquete.addBloque( bloque );
             }
         }
 
-        paquete.conectar();
+        paquete.conectar(b);
         return paquete;
     }
 

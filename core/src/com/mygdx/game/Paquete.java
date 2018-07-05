@@ -12,15 +12,8 @@ public class Paquete {
     private Color color;
     private ArrayList<Bloque> bloques = new ArrayList<Bloque>();
 
-    public void conectar(){
-        if (bloques.size() >= 2){
-            for(Bloque bA: bloques)
-                for(Bloque bB: bloques){
-                    if ((bA != bB) && ( Math.abs (bA.getPhisicX() - bB.getPhisicX()) <= bB.getGraphicWidth()/PPM ) && ( Math.abs (bA.getPhisicY() - bA.getPhisicY()) <= bB.getGraphicWidth()/PPM ) ){
-                        bA.conectar(bB);
-                    }
-                }
-        }
+    public void conectar(Bloque [][] b ){
+
     }
 
     public void addBloque(Bloque b) {
