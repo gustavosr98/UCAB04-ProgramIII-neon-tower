@@ -9,6 +9,7 @@ public class MyCamera extends OrthographicCamera {
     private float tiempoSensorActivo;
     private float desfaceY = 0;
     private float unidad;
+    private boolean renovarJuego;
 
     public MyCamera(float w, float h, float unidad){
         this.viewportWidth = w;
@@ -16,12 +17,13 @@ public class MyCamera extends OrthographicCamera {
         this.unidad = unidad;
     }
 
+
     public void revisarSensor(boolean x){
         this.sensor = x;
 
         if (sensor) {
             tiempoSensorActivo += Gdx.graphics.getDeltaTime();
-            if (tiempoSensorActivo >= 3) {
+            if (tiempoSensorActivo >= 2) {
                 moverY();
                 tiempoSensorActivo = 0;
             }
@@ -36,5 +38,10 @@ public class MyCamera extends OrthographicCamera {
     public float getDesfaceY(){
         return desfaceY;
     }
+
+    public void setDesfaceY(float y){
+        desfaceY = y;
+    }
+
 
 }

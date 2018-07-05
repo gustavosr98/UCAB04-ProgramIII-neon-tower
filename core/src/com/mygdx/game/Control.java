@@ -40,7 +40,7 @@ public class Control {
         float x, y;
 
         for(BotonControl bc : botones){
-            y = Gdx.graphics.getHeight()/2 - camara.getDesfaceY()*0;
+            y = Gdx.graphics.getHeight()/3 - camara.getDesfaceY();
             x = Gdx.graphics.getWidth()/2;
 
             if( bc.isOn() ) {
@@ -64,6 +64,7 @@ public class Control {
             }
         }
 
+        paquete.conectar();
         return paquete;
     }
 

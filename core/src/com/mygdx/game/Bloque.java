@@ -11,4 +11,10 @@ public abstract class Bloque {
 	public abstract void conectar(Bloque b);
 	public abstract Body getBody();
 	public abstract boolean hayBloqueArriba(float y);
+
+	public abstract float getGraphicY();
+	public abstract float getGraphicX();
+	public abstract float getPhisicY();
+	public abstract float getPhisicX();
+	public abstract float getGraphicWidth();
 }

@@ -5,6 +5,7 @@ import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
 
+import static com.mygdx.game.Constantes.PPM;
 
 
 public class Paquete {
@@ -12,14 +13,13 @@ public class Paquete {
     private ArrayList<Bloque> bloques = new ArrayList<Bloque>();
 
     public void conectar(){
-        Bloque bA, bB;
-
         if (bloques.size() >= 2){
-            for(int i = 1; i < bloques.size() ; i++){
-                bA = bloques.get(i-1);
-                bB = bloques.get(i);
-                bA.conectar(bB);
-            }
+            for(Bloque bA: bloques)
+                for(Bloque bB: bloques){
+                    if ((bA != bB) && ( Math.abs (bA.getPhisicX() - bB.getPhisicX()) <= bB.getGraphicWidth()/PPM ) && ( Math.abs (bA.getPhisicY() - bA.getPhisicY()) <= bB.getGraphicWidth()/PPM ) ){
+                        bA.conectar(bB);
+                    }
+                }
         }
     }
 

@@ -27,6 +27,8 @@ public class PantallaJuego extends Pantalla{
     private Control control;
     private Stage stage;
 
+    private boolean renovarJuego;
+
 
     public PantallaJuego(final MyGdxGame game){
         super (game);
@@ -58,18 +60,18 @@ public class PantallaJuego extends Pantalla{
     public void render(float delta) {
         cls();
 
-		/*if(Gdx.input.justTouched()){
-			board.nuevoPaquete( world, game.getUnidad(), Gdx.input.getX()  , game.getHeight() - Gdx.input.getY() );
-		}*/
-
         update(Gdx.graphics.getDeltaTime());
 
-		camara.revisarSensor ( board.hayBloqueArriba(game.getHeight()/2 ) );
+		camara.revisarSensor ( board.hayBloqueArriba(2*game.getHeight()/3 - camara.getDesfaceY() ) );
+		if ( getRenovarJuego() ) {
+            camara.position.add(0, -camara.getDesfaceY(), 0);
+            setRenovarJuego(false);
+        }
+
         batch.begin();
         board.draw(batch);
         piso.draw(batch);
         batch.end();
-
 
         stage.act();
         stage.draw();
@@ -88,24 +90,21 @@ public class PantallaJuego extends Pantalla{
     public void reiniciar(){
         camara.position.set(game.getWidth()/2 , game.getWidth()/2,0);
         board.dispose(world);
+        camara.setDesfaceY(0);
     }
 
     public void update(float delta){
         world.step(1/60f, 6, 2);
         board.update();
-        cameraUpdate(delta);
+        camara.update();
         batch.setProjectionMatrix(camara.combined);
         piso.update();
         control.update( board, world, game.getUnidad(), camara, Gdx.input.isTouched() );
     }
 
-    public void cameraUpdate(float delta){
-        camara.update();
-    }
 
     @Override
     public void dispose() {
-
         batch.dispose();
         board.dispose(world);
         piso.dispose(world);
@@ -115,6 +114,14 @@ public class PantallaJuego extends Pantalla{
     public static void cls() {
         Gdx.gl.glClearColor(0, 0, 0, 1.0F);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+    }
+
+    public void setRenovarJuego(boolean x){
+        renovarJuego = x;
+    }
+
+    public boolean getRenovarJuego(){
+        return renovarJuego;
     }
 
 }

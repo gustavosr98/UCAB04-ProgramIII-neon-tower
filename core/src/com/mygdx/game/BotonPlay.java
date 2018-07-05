@@ -20,6 +20,7 @@ public class BotonPlay extends Boton {
         button.addCaptureListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                game.pantallaJuego.setRenovarJuego(true);
                 game.setScreen(game.pantallaJuego);
             }
         });
