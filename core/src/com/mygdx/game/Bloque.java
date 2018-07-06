@@ -18,4 +18,5 @@ public abstract class Bloque {
 	public abstract float getPhisicX();
 	public abstract float getGraphicWidth();
 	public abstract boolean gameOver(float y);
+	public abstract void congelar();
 }

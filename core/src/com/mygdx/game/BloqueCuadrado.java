@@ -41,7 +41,11 @@ public class BloqueCuadrado extends Bloque {
         body.createFixture(fDef);
         shape.dispose();
     }
-    
+
+    public void congelar(){
+        BodyDef.BodyType type = body.getType();
+        type = BodyDef.BodyType.DynamicBody;
+    }
 
     public void update(){
         sprite.setPosition( body.getPosition().x*PPM - sprite.getWidth()/2 , body.getPosition().y*PPM - sprite.getHeight()/2);

@@ -48,6 +48,11 @@ public class Board {
 			p.draw(batch);
 	}
 
+	public void congelar(){
+		for (Paquete p: paquetes)
+			p.congelar();
+	}
+
 	public void dispose(World world){
 		for (Paquete p: paquetes)
 			p.dispose(world);

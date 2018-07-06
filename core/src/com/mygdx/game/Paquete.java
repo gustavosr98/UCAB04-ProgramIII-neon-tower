@@ -42,6 +42,11 @@ public class Paquete {
 
     }
 
+    public void congelar(){
+        for (Bloque b: bloques)
+            b.congelar();
+    }
+
     public void addBloque(Bloque b) {
         bloques.add( b );
     }

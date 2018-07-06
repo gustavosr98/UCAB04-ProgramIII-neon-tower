@@ -25,6 +25,7 @@ public class PantallaJuego extends Pantalla{
 
     private Control control;
     private BotonPausa botonPausa;
+    private BotonPoder botonPoder;
     private boolean renovarJuego;
     private SistemaPuntuacion score;
     private GameOverListener gameOverListener;
@@ -46,6 +47,7 @@ public class PantallaJuego extends Pantalla{
         piso = new Piso(world, game.getUnidad(), game.getWidth(), game.getHeight());
 
         botonPausa = new BotonPausa(game);
+        botonPoder = new BotonPoder(game);
         score = new SistemaPuntuacion();
         score.setY(game);
         score.setX(game);
@@ -56,6 +58,7 @@ public class PantallaJuego extends Pantalla{
 
         stage = new Stage();
         stage.addActor(botonPausa.getButton());
+        stage.addActor(botonPoder.getButton());
         control = new Control(game, stage);
 
     }
@@ -71,7 +74,6 @@ public class PantallaJuego extends Pantalla{
         gameOverListener.gameOver(game, board);
         update(Gdx.graphics.getDeltaTime());
         draw();
-
     }
 
     @Override
@@ -113,12 +115,13 @@ public class PantallaJuego extends Pantalla{
         control.update( board, world, game.getUnidad(), camara, Gdx.input.isTouched(), score);
         score.setMultiplicador( Math.round( camara.getDesfaceY()/game.getUnidad()/3 ) );
         batch.setProjectionMatrix(camara.combined);
-
+        botonPoder.update(board);
         camara.revisarSensor ( board.hayBloqueEntre(8*game.getHeight()/16 - camara.getDesfaceY(), 9*game.getHeight()/16 - camara.getDesfaceY() ) );
         if ( getRenovarJuego() ) {
             camara.position.add(0, -camara.getDesfaceY(), 0);
             setRenovarJuego(false);
         }
+
 
     }
 
