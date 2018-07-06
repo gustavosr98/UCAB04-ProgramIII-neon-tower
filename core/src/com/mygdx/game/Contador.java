@@ -16,7 +16,7 @@ public class Contador {
     }
 
     public void aleatorio(){
-        numero = 5/*(int) ( Math.random() * 10 ) + 1*/;
+        numero = (int) ( Math.random() * 10 ) + 1;
     }
 
     public void desfaceY(float dy){

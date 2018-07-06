@@ -43,8 +43,29 @@ public class BloqueCuadrado extends Bloque {
     }
 
     public void congelar(){
-        BodyDef.BodyType type = body.getType();
-        type = BodyDef.BodyType.DynamicBody;
+        sprite.setColor(1,1,1,1);
+        /*World world = body.getWorld();
+        float unidad = getGraphicWidth();
+
+        BodyDef def = new BodyDef();
+        def.type = BodyDef.BodyType.StaticBody;
+        def.position.set( getGraphicX() , getGraphicY() );
+        def.fixedRotation = false;
+
+        world.destroyBody(body);
+        body = world.createBody(def);
+
+        PolygonShape shape = new PolygonShape();
+        shape.setAsBox(unidad/2 / PPM, unidad/2 / PPM);
+
+        FixtureDef fDef = new FixtureDef();
+        fDef.density = 1.0f;
+        fDef.friction = 3.0f;
+        fDef.shape = shape;
+
+        body.createFixture(fDef);
+        shape.dispose();*/
+
     }
 
     public void update(){

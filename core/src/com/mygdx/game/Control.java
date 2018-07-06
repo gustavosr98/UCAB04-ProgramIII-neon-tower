@@ -104,7 +104,6 @@ public class Control {
                 board.addPaquete(crearPaquete(world, unidad, board.getColor(), camara));
                 score.sumar( contador.getNumero() );
                 contador.aleatorio();
-
             }
 
             apagarBotones();
