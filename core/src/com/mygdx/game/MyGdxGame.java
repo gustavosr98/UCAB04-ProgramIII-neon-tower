@@ -9,7 +9,7 @@ public class MyGdxGame extends Game {
 	private float unidad;
 
 	public PantallaJuego pantallaJuego;
-	public PantallaMenu pantallaMenu;
+	public PantallaPausa pantallaPausa;
 
 
 	@Override
@@ -20,9 +20,9 @@ public class MyGdxGame extends Game {
 		unidad = w / 16 ;
 
 		pantallaJuego = new PantallaJuego(this);
-		pantallaMenu = new PantallaMenu(this);
+		pantallaPausa = new PantallaPausa(this);
 
-		setScreen(pantallaMenu);
+		setScreen(pantallaPausa);
 	}
 
 

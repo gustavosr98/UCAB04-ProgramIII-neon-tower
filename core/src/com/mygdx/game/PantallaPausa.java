@@ -11,13 +11,13 @@ import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
 
-public class PantallaMenu extends Pantalla {
+public class PantallaPausa extends Pantalla {
 
     private Stage stage;
     private BotonPlay botonPlay;
     private BotonReset botonReset;
 
-    public PantallaMenu(final MyGdxGame game) {
+    public PantallaPausa(final MyGdxGame game) {
         super(game);
 
         botonPlay = new BotonPlay(game);

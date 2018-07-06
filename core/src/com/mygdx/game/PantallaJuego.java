@@ -27,6 +27,7 @@ public class PantallaJuego extends Pantalla{
     private BotonPausa botonPausa;
     private boolean renovarJuego;
     private SistemaPuntuacion score;
+    private GameOverListener gameOverListener;
 
     private Stage stage;
 
@@ -50,6 +51,9 @@ public class PantallaJuego extends Pantalla{
         score.setX(game);
         score.reiniciar();
 
+        gameOverListener = new GameOverListener();
+        gameOverListener.setY( piso.getPhisicY() );
+
         stage = new Stage();
         stage.addActor(botonPausa.getButton());
         control = new Control(game, stage);
@@ -64,19 +68,10 @@ public class PantallaJuego extends Pantalla{
     @Override
     public void render(float delta) {
         cls();
-
+        gameOverListener.gameOver(game, board);
         update(Gdx.graphics.getDeltaTime());
-
-		camara.revisarSensor ( board.hayBloqueEntre(8*game.getHeight()/16 - camara.getDesfaceY(), 9*game.getHeight()/16 - camara.getDesfaceY() ) );
-		if ( getRenovarJuego() ) {
-            camara.position.add(0, -camara.getDesfaceY(), 0);
-            setRenovarJuego(false);
-        }
-
         draw();
 
-        stage.act();
-        stage.draw();
     }
 
     @Override
@@ -96,6 +91,7 @@ public class PantallaJuego extends Pantalla{
         board.draw(batch);
         piso.draw(batch);
         batch.end();
+        stage.draw();
     }
 
     public void reiniciar(){
@@ -104,9 +100,11 @@ public class PantallaJuego extends Pantalla{
         camara.setDesfaceY(0);
         control.reiniciarContador();
         score.reiniciar();
+        score.setMultiplicador(1);
     }
 
     public void update(float delta){
+        stage.act();
         world.step(1/60f, 6, 2);
         board.update();
         camara.update();
@@ -115,6 +113,13 @@ public class PantallaJuego extends Pantalla{
         control.update( board, world, game.getUnidad(), camara, Gdx.input.isTouched(), score);
         score.setMultiplicador( Math.round( camara.getDesfaceY()/game.getUnidad()/3 ) );
         batch.setProjectionMatrix(camara.combined);
+
+        camara.revisarSensor ( board.hayBloqueEntre(8*game.getHeight()/16 - camara.getDesfaceY(), 9*game.getHeight()/16 - camara.getDesfaceY() ) );
+        if ( getRenovarJuego() ) {
+            camara.position.add(0, -camara.getDesfaceY(), 0);
+            setRenovarJuego(false);
+        }
+
     }
 
 

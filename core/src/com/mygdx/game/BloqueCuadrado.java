@@ -48,6 +48,12 @@ public class BloqueCuadrado extends Bloque {
         sprite.setRotation( (float) Math.toDegrees( body.getAngle() ) );
     }
 
+    public boolean gameOver(float y){
+        if( getPhisicY() > y )
+            return true;
+        else return false;
+    }
+
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
     }

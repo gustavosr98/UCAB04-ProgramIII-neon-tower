@@ -63,6 +63,14 @@ public class Board {
 		return x;
 	}
 
+	public boolean gameOver(float y){
+		boolean x = false;
+		for(Paquete p: paquetes)
+			if ( p.gameOver(y) )
+				x = true;
+		return x;
+	}
+
 
 
 }

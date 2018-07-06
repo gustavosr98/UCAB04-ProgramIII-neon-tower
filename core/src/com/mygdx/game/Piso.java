@@ -39,6 +39,10 @@ public class Piso {
         sprite.setPosition( body.getPosition().x*PPM - sprite.getWidth()/2 , body.getPosition().y*PPM - sprite.getHeight()/2);
     }
 
+    public float getPhisicY(){
+        return body.getPosition().y;
+    }
+
     public void draw(SpriteBatch batch){
         sprite.draw(batch);
     }

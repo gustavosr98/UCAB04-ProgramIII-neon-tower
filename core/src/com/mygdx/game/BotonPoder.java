@@ -2,27 +2,19 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
-import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-public class BotonPausa extends Boton {
+public class BotonPoder extends Boton {
 
-    public BotonPausa(final MyGdxGame game){
+    public BotonPoder(final MyGdxGame game){
         TextureRegionDrawable drawable = new TextureRegionDrawable(new TextureRegion(new Texture("botonPausa.png")));
         button = new ImageButton(drawable);
 
         button.setSize(game.getUnidad()*2 , game.getUnidad()*2);
-        button.setPosition(game.getWidth() - button.getWidth(), game.getHeight() - button.getHeight() );
+        button.setPosition(game.getWidth()/2 + game.getUnidad()* (5), game.getUnidad()*9 );
 
-        button.addCaptureListener(new ChangeListener() {
-            @Override
-            public void changed(ChangeEvent event, Actor actor) {
-                game.setScreen(game.pantallaPausa);
-            }
-        });
     }
 
     public Button getButton(){

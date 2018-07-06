@@ -51,6 +51,14 @@ public class Paquete {
             b.update();
     }
 
+    public boolean gameOver(float y){
+        boolean x = false;
+        for(Bloque b: bloques)
+            if ( b.gameOver(y) )
+                x = true;
+        return x;
+    }
+
     public void draw(SpriteBatch batch){
         for (Bloque b: bloques)
             b.draw(batch);
