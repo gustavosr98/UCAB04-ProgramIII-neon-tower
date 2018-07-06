@@ -6,12 +6,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
-import com.badlogic.gdx.physics.box2d.joints.RopeJointDef;
-import com.badlogic.gdx.physics.box2d.joints.WeldJoint;
-import com.badlogic.gdx.physics.box2d.joints.WeldJointDef;
 
 import static com.mygdx.game.Constantes.PPM;
 
@@ -36,7 +34,12 @@ public class BloqueCuadrado extends Bloque {
         PolygonShape shape = new PolygonShape();
         shape.setAsBox(unidad/2 / PPM, unidad/2 / PPM);
 
-        body.createFixture(shape, 1.0f);
+        FixtureDef fDef = new FixtureDef();
+        fDef.density = 0.5f;
+        fDef.friction = 2.0f;
+        fDef.shape = shape;
+
+        body.createFixture(fDef);
         shape.dispose();
     }
     
@@ -71,16 +74,18 @@ public class BloqueCuadrado extends Bloque {
         return body.getPosition().x;
     }
 
-    public void conectar(Bloque b){
-        RopeJointDef dDef = new RopeJointDef();
+    public void enlazar(Bloque b){
+        DistanceJointDef dDef = new DistanceJointDef();
 
         dDef.bodyA = this.body;
         dDef.bodyB = b.getBody();
+
         //dDef.length = (float) Math.hypot( getGraphicX() - b.getGraphicX(), getGraphicY() - b.getGraphicY()) / PPM;
+
         dDef.collideConnected = true;
-        dDef.maxLength = (sprite.getWidth() + sprite.getWidth()/10 )/ PPM;
-        /*dDef.frequencyHz = 0f;
-        dDef.dampingRatio = 1f;*/
+        dDef.length = sprite.getWidth() / PPM;
+        dDef.frequencyHz = 0f;
+        dDef.dampingRatio = 0f;
 
         World world = body.getWorld();
         world.createJoint(dDef);
