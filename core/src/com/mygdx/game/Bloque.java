@@ -10,7 +10,7 @@ public abstract class Bloque {
 	public abstract void dispose(World world);
 	public abstract void enlazar(Bloque b);
 	public abstract Body getBody();
-	public abstract boolean hayBloqueArriba(float y);
+	public abstract boolean hayBloqueEntre(float y1, float y2);
 
 	public abstract float getGraphicY();
 	public abstract float getGraphicX();

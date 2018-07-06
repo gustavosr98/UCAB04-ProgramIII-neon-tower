@@ -54,10 +54,10 @@ public class Board {
 		paquetes.clear();
 	}
 
-	public boolean hayBloqueArriba(float y){
+	public boolean hayBloqueEntre(float y1, float y2){
 		boolean x = false;
 		for(Paquete p: paquetes){
-			if( p.hayBloqueArriba(y) )
+			if( p.hayBloqueEntre(y1,y2) )
 				x = true;
 		}
 		return x;

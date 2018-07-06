@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.physics.box2d.World;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
@@ -10,6 +11,7 @@ import java.util.ArrayList;
 public class Control {
 
     private ArrayList<BotonControl> botones;
+    private Contador contador;
 
     public Control(MyGdxGame game, Stage stage) {
 
@@ -22,6 +24,11 @@ public class Control {
         }
 
         enlazar();
+
+        contador = new Contador();
+        contador.setY(game);
+        contador.setX(game);
+        contador.aleatorio();
     }
 
     public void setearIdBotones(){
@@ -91,12 +98,19 @@ public class Control {
         }
     }
 
-    public void update(Board board, World world, float unidad, MyCamera camara, boolean pantallaTocada) {
+    public void update(Board board, World world, float unidad, MyCamera camara, boolean pantallaTocada, SistemaPuntuacion score) {
         if (!pantallaTocada) {
-            board.addPaquete( crearPaquete(world, unidad, board.getColor() , camara) );
+            if(contador.getNumero() ==  cantBotonesOn() ) {
+                board.addPaquete(crearPaquete(world, unidad, board.getColor(), camara));
+                score.sumar( contador.getNumero() );
+                contador.aleatorio();
+
+            }
+
             apagarBotones();
         }
 
+        contador.desfaceY( camara.getDesfaceY() );
         Button tmp;
         for (BotonControl b : botones) {
             tmp = b.getButton();
@@ -107,6 +121,13 @@ public class Control {
 
     }
 
+    public void drawContador(SpriteBatch batch){
+        contador.draw(batch);
+    }
+
+    public void reiniciarContador(){
+        contador.aleatorio();
+    }
 
 
     public void apagarBotones(){
@@ -119,70 +140,27 @@ public class Control {
         BotonControl botonA, botonB;
 
         //Enlaces horizontales
-        for(int i=1; i < 5; i++){
-            botonA = botones.get(i-1);
-            botonB = botones.get(i);
+        for(int a=0; a <= 10; a+=5) {
+            for (int i = 1 + a; i < 5 + a; i++) {
+                botonA = botones.get(i - 1);
+                botonB = botones.get(i);
 
-            botonA.enlazar(botonB);
-            botonB.enlazar(botonA);
-        }
-
-        for(int i=6; i < 10; i++){
-            botonA = botones.get(i-1);
-            botonB = botones.get(i);
-
-            botonA.enlazar(botonB);
-            botonB.enlazar(botonA);
-        }
-
-        for(int i=11; i < 15; i++){
-            botonA = botones.get(i-1);
-            botonB = botones.get(i);
-
-            botonA.enlazar(botonB);
-            botonB.enlazar(botonA);
+                botonA.enlazar(botonB);
+                botonB.enlazar(botonA);
+            }
         }
 
         //Enlaces verticales
-        for (int i = 5; i <= 10; i += 5) {
-            botonA = botones.get(i-5);
-            botonB = botones.get(i);
+        for(int a = 0; a <= 4; a++) {
+            for (int i = 5 + a; i <= 10 + a; i += 5) {
+                botonA = botones.get(i - 5);
+                botonB = botones.get(i);
 
-            botonA.enlazar(botonB);
-            botonB.enlazar(botonA);
+                botonA.enlazar(botonB);
+                botonB.enlazar(botonA);
+            }
         }
 
-        for (int i = 6; i <= 11; i += 5) {
-            botonA = botones.get(i-5);
-            botonB = botones.get(i);
-
-            botonA.enlazar(botonB);
-            botonB.enlazar(botonA);
-        }
-
-        for (int i = 7; i <= 12; i += 5) {
-            botonA = botones.get(i-5);
-            botonB = botones.get(i);
-
-            botonA.enlazar(botonB);
-            botonB.enlazar(botonA);
-        }
-
-        for (int i = 8; i <= 13; i += 5) {
-            botonA = botones.get(i-5);
-            botonB = botones.get(i);
-
-            botonA.enlazar(botonB);
-            botonB.enlazar(botonA);
-        }
-
-        for (int i = 9; i <= 14; i += 5) {
-            botonA = botones.get(i-5);
-            botonB = botones.get(i);
-
-            botonA.enlazar(botonB);
-            botonB.enlazar(botonA);
-        }
 
     }
 

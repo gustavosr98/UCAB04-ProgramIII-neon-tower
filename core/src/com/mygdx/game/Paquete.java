@@ -61,10 +61,10 @@ public class Paquete {
             b.dispose(world);
     }
 
-    public boolean hayBloqueArriba(float y){
+    public boolean hayBloqueEntre(float y1, float y2){
         boolean x = false;
         for(Bloque b: bloques){
-            if( b.hayBloqueArriba(y) )
+            if( b.hayBloqueEntre(y1,y2) )
                 x = true;
         }
         return x;

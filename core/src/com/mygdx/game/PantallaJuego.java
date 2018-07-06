@@ -23,11 +23,12 @@ public class PantallaJuego extends Pantalla{
     private Board board;
     private Piso piso;
 
-    private BotonPausa botonPausa;
     private Control control;
-    private Stage stage;
-
+    private BotonPausa botonPausa;
     private boolean renovarJuego;
+    private SistemaPuntuacion score;
+
+    private Stage stage;
 
 
     public PantallaJuego(final MyGdxGame game){
@@ -44,6 +45,10 @@ public class PantallaJuego extends Pantalla{
         piso = new Piso(world, game.getUnidad(), game.getWidth(), game.getHeight());
 
         botonPausa = new BotonPausa(game);
+        score = new SistemaPuntuacion();
+        score.setY(game);
+        score.setX(game);
+        score.reiniciar();
 
         stage = new Stage();
         stage.addActor(botonPausa.getButton());
@@ -62,16 +67,13 @@ public class PantallaJuego extends Pantalla{
 
         update(Gdx.graphics.getDeltaTime());
 
-		camara.revisarSensor ( board.hayBloqueArriba(2*game.getHeight()/3 - camara.getDesfaceY() ) );
+		camara.revisarSensor ( board.hayBloqueEntre(8*game.getHeight()/16 - camara.getDesfaceY(), 9*game.getHeight()/16 - camara.getDesfaceY() ) );
 		if ( getRenovarJuego() ) {
             camara.position.add(0, -camara.getDesfaceY(), 0);
             setRenovarJuego(false);
         }
 
-        batch.begin();
-        board.draw(batch);
-        piso.draw(batch);
-        batch.end();
+        draw();
 
         stage.act();
         stage.draw();
@@ -87,25 +89,39 @@ public class PantallaJuego extends Pantalla{
         Gdx.input.setInputProcessor(null);
     }
 
+    public void draw(){
+        batch.begin();
+        score.draw(batch);
+        control.drawContador(batch);
+        board.draw(batch);
+        piso.draw(batch);
+        batch.end();
+    }
+
     public void reiniciar(){
         camara.position.set(game.getWidth()/2 , game.getWidth()/2,0);
         board.dispose(world);
         camara.setDesfaceY(0);
+        control.reiniciarContador();
+        score.reiniciar();
     }
 
     public void update(float delta){
         world.step(1/60f, 6, 2);
         board.update();
         camara.update();
-        batch.setProjectionMatrix(camara.combined);
         piso.update();
-        control.update( board, world, game.getUnidad(), camara, Gdx.input.isTouched() );
+        score.desfaceY( camara.getDesfaceY() );
+        control.update( board, world, game.getUnidad(), camara, Gdx.input.isTouched(), score);
+        score.setMultiplicador( Math.round( camara.getDesfaceY()/game.getUnidad()/3 ) );
+        batch.setProjectionMatrix(camara.combined);
     }
 
 
     @Override
     public void dispose() {
         batch.dispose();
+        score.dispose();
         board.dispose(world);
         piso.dispose(world);
         world.dispose();

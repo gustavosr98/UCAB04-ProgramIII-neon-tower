@@ -14,12 +14,11 @@ import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 import static com.mygdx.game.Constantes.PPM;
 
 public class BloqueCuadrado extends Bloque {
-    private Texture imagen;
     private Sprite sprite;
     private Body body;
 
     public BloqueCuadrado(World world, float unidad, float x, float y, Color c){
-        imagen = new Texture("Bloque2.png");
+        Texture imagen = new Texture("Bloque2.png");
         sprite = new Sprite(imagen);
         sprite.setSize(unidad, unidad);
         sprite.setPosition(x, y);
@@ -35,8 +34,8 @@ public class BloqueCuadrado extends Bloque {
         shape.setAsBox(unidad/2 / PPM, unidad/2 / PPM);
 
         FixtureDef fDef = new FixtureDef();
-        fDef.density = 0.5f;
-        fDef.friction = 2.0f;
+        fDef.density = 1.0f;
+        fDef.friction = 3.0f;
         fDef.shape = shape;
 
         body.createFixture(fDef);
@@ -54,7 +53,6 @@ public class BloqueCuadrado extends Bloque {
     }
     
     public void dispose(World world){
-        imagen.dispose();
         world.destroyBody(body);
     }
 
@@ -80,8 +78,6 @@ public class BloqueCuadrado extends Bloque {
         dDef.bodyA = this.body;
         dDef.bodyB = b.getBody();
 
-        //dDef.length = (float) Math.hypot( getGraphicX() - b.getGraphicX(), getGraphicY() - b.getGraphicY()) / PPM;
-
         dDef.collideConnected = true;
         dDef.length = sprite.getWidth() / PPM;
         dDef.frequencyHz = 0f;
@@ -95,8 +91,8 @@ public class BloqueCuadrado extends Bloque {
         return this.body;
     }
 
-    public boolean hayBloqueArriba(float y){
-        if( sprite.getY() < y ){
+    public boolean hayBloqueEntre(float y1, float y2){
+        if((sprite.getY() > y1 ) && (sprite.getY() < y2)){
             return true;
         } else return false;
     }
