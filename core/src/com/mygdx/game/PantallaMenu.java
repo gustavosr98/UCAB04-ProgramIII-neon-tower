@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -10,27 +11,25 @@ import com.badlogic.gdx.scenes.scene2d.ui.ImageButton;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.TextureRegionDrawable;
 
-
-public class PantallaPausa extends Pantalla {
+public class PantallaMenu extends Pantalla {
 
     private Stage stage;
     private BotonPlay botonPlay;
-    private BotonReset botonReset;
-    private BotonMenu botonMenu;
+    private BotonSalir botonSalir;
+    private Wallpaper wallpaper;
+    private SpriteBatch batch;
 
-    public PantallaPausa(final MyGdxGame game) {
+    public PantallaMenu(final MyGdxGame game) {
         super(game);
+        wallpaper = new Wallpaper(game.getWidth() , game.getHeight());
+        batch = new SpriteBatch();
 
         botonPlay = new BotonPlay(game);
-        botonReset = new BotonReset(game);
-        botonMenu = new BotonMenu(game);
-        botonMenu.setX(game.getWidth()/2 - game.getUnidad()*5/2);
-        botonMenu.setY(game.getHeight()/2 - game.getUnidad()*10);
+        botonSalir = new BotonSalir(game);
 
         stage = new Stage();
         stage.addActor(botonPlay.getButton());
-        stage.addActor(botonReset.getButton());
-        stage.addActor(botonMenu.getButton());
+        stage.addActor(botonSalir.getButton());
 
     }
 
@@ -42,6 +41,10 @@ public class PantallaPausa extends Pantalla {
     @Override
     public void render(float delta) {
         cls();
+
+        batch.begin();
+        wallpaper.draw(batch);
+        batch.end();
         stage.act();
         stage.draw();
     }

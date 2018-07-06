@@ -10,7 +10,7 @@ public class Wallpaper {
 
     public Wallpaper(float width, float height){
         //fondo por defecto
-        Texture imagen = new Texture("Fondo3.jpg");
+        Texture imagen = new Texture("Wallpaper.jpg");
         sprite = new Sprite(imagen);
         sprite.setSize(width , height);
         sprite.setPosition(0,0);

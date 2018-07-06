@@ -9,6 +9,6 @@ public class GameOverListener {
 
     public void gameOver(MyGdxGame game, Board board){
         if ( board.gameOver(y) )
-            game.setScreen(game.pantallaPausa);
+            game.setScreen(game.pantallaGameOver);
     }
 }
